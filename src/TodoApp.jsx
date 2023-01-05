@@ -1,15 +1,12 @@
 import React, { useState } from "react";
+import Todo from "./Todo";
 
 function TodoApp() {
-  // LOGICA
+  // STATES
   const [title, setTitle] = useState("");
   const [todos, setTodos] = useState([]);
 
-  function handleClick(e) {
-    e.preventDefault();
-    setTitle();
-  }
-
+  // FUNCTIONS
   function handleChange(event) {
     const value = event.target.value;
     setTitle(value);
@@ -20,24 +17,34 @@ function TodoApp() {
     const newTodo = {
       id: crypto.randomUUID(),
       title: title,
-      completed: true,
+      completed: false,
     };
-    setTodos([...todos, setTodos])
+
+    // Hago una copia de lo que tengo en todos
+    const temp = [...todos];
+    // Le agrego el nuevo todo al principio
+    temp.unshift(newTodo);
+
+    setTodos(temp);
   }
 
   // RENDER
   return (
-    <div className="container">
+    <div className="todoContainer">
       <form className="createForm" onSubmit={handleSubmit}>
         <input className="todoInput" value={title} onChange={handleChange} />
         <input
           className="bottonCreate"
           type="submit"
           value="Create Todo"
-          onClick={handleClick}
+          onClick={handleSubmit}
         />
       </form>
-      {title}
+      <div className="todosContainer">
+        {todos?.map((item) => (
+          <Todo item={item} key={item.id} />
+        ))}
+      </div>
     </div>
   );
 }
