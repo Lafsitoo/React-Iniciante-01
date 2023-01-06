@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import "./todoApp.css"
 
-function Todo({ item, onUpdate }) {
+function Todo({ item, onUpdate, onDelete }) {
   // STATES
   const [isEdit, setIsEdit] = useState(false);
 
@@ -16,9 +17,9 @@ function Todo({ item, onUpdate }) {
       const value = event.target.value;
       setNewValue(value);
     }
-    function handleClickUpdateToto(){
-      onUpdate(item.id, newValue)
-      setIsEdit(false)
+    function handleClickUpdateToto() {
+      onUpdate(item.id, newValue);
+      setIsEdit(false);
     }
     return (
       <form className="todoUpdateForm" onSubmit={handleSubmit}>
@@ -28,7 +29,9 @@ function Todo({ item, onUpdate }) {
           value={newValue}
           onChange={handleChange}
         />
-        <button className="botton" onClick={handleClickUpdateToto}>Update</button>
+        <button className="botton" onClick={handleClickUpdateToto}>
+          Update
+        </button>
       </form>
     );
   }
@@ -36,15 +39,18 @@ function Todo({ item, onUpdate }) {
   function TodoElement() {
     return (
       <div className="todoInfo">
-        {item.title}
+        <span className="todoTitle">{item.title}</span>
         <button
+          className="bottonEdit"
           onClick={() => {
             setIsEdit(true);
           }}
         >
           Edit
         </button>
-        <button>Delete</button>
+        <button className="bottonDelete" onClick={(event) => onDelete(item.id)}>
+          Delete
+        </button>
       </div>
     );
   }
