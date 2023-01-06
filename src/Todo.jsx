@@ -18,16 +18,20 @@ function Todo({ item }) {
     return (
       <div className="todoInfo">
         {item.title}
-        <button onClick={() => {setIsEdit(true)}}>Edit</button>
+        <button
+          onClick={() => {
+            setIsEdit(true);
+          }}
+        >
+          Edit
+        </button>
         <button>Delete</button>
       </div>
     );
   }
 
   // RENDER
-  return (
-    <div className="todo">{isEdit ? <div>Modo Editar</div> : TodoElement}</div>
-  );
+  return <div className="todo">{isEdit ? <FormList /> : <TodoElement />}</div>;
 }
 
 export default Todo;
