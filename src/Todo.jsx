@@ -1,18 +1,34 @@
 import React, { useState } from "react";
 
-function Todo({ item }) {
+function Todo({ item, onUpdate }) {
   // STATES
   const [isEdit, setIsEdit] = useState(false);
 
   // FUNCTIONS
   function FormList() {
+    // STATES
+    const [newValue, setNewValue] = useState(item.title);
+    // FUNCTIONS
     function handleSubmit(e) {
-      e.preventDefault()
+      e.preventDefault();
+    }
+    function handleChange(event) {
+      const value = event.target.value;
+      setNewValue(value);
+    }
+    function handleClickUpdateToto(){
+      onUpdate(item.id, newValue)
+      setIsEdit(false)
     }
     return (
       <form className="todoUpdateForm" onSubmit={handleSubmit}>
-        <input type="text" />
-        <button>Update</button>
+        <input
+          type="text"
+          className="todoInput"
+          value={newValue}
+          onChange={handleChange}
+        />
+        <button className="botton" onClick={handleClickUpdateToto}>Update</button>
       </form>
     );
   }
