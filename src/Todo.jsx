@@ -6,8 +6,11 @@ function Todo({ item }) {
 
   // FUNCTIONS
   function FormList() {
+    function handleSubmit(e) {
+      e.preventDefault()
+    }
     return (
-      <form>
+      <form className="todoUpdateForm" onSubmit={handleSubmit}>
         <input type="text" />
         <button>Update</button>
       </form>
